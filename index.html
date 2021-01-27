@@ -24,7 +24,7 @@
             <div class="col-md-4">
                 <div class="deposit status">
                     <h5>Deposit</h5>
-                    <h2>$00</h2>
+                    <h2>$<span id="current-deposit">00</span></h2>
                 </div>
             </div>
             <div class="col-md-4">
@@ -36,24 +36,31 @@
             <div class="col-md-4">
                 <div class="balance status">
                     <h5>Balance</h5>
-                    <h2>$2200</h2>
+                    <h2>$<span id="current-balance">2200</span></h2>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
+               <div class="submit-area">
                 <h4>Deposit</h4>
-                <input type="text">
-                <button class="btn btn-success">Deposit</button>
+                <input type="text" id="deposit-amount" class="form-control" placeholder="$-Amount you want to deposit">
+                <br>
+                <button id="deposit-btn" class="btn btn-success">Deposit</button>
+               </div>
             </div>
             <div class="col-md-6">
+               <div class="submit-area">
                 <h4>Withdraw</h4>
-                <input type="text">
-                <button class="btn btn-success">Withdraw</button>
+                <input type="text" id="withdraw-amount" class="form-control" placeholder="$-Amount yo have to withdraw">
+                <br>
+                <button id="withdraw-btn" class="btn btn-success">Withdraw</button>
+               </div>
             </div>
         </div>
     </div>
     <script>
+        // Login button event handler
         const loginBtn = document.getElementById("login");
         loginBtn.addEventListener("click", function(){
             const loginArea = document.getElementById("login-area");
@@ -61,6 +68,34 @@
             const transactionArea = document.getElementById("transaction-area");
             transactionArea.style.display = "block";
         })
+
+        // Deposit button event handler
+        const depositBtn = document.getElementById("deposit-btn");
+        depositBtn.addEventListener("click", function(){
+            const depositNumber = getInputNumber("deposit-amount");
+
+            updateSpanText("current-deposit", depositNumber);
+            updateSpanText("current-balance", depositNumber);
+
+            document.getElementById("deposit-amount").value = "";
+        })
+        // Withdraw button event handler
+        const withdrawBtn = document.getElementById("withdraw-btn");
+        withdrawBtn.addEventListener("click", function() {
+            const withdrawAmountNumber = getInputNumber("withdraw-amount");
+
+        })
+        function getInputNumber(id) {
+            const amount = document.getElementById("id").value;
+            const amountNumber = parseFloat(amount);
+            return amountNumber;
+        }
+        function updateSpanText(id, depositNumber) {
+            const current = document.getElementById(id).innerText;
+            const currentNumber = parseFloat(current);
+            const totalAmount = depositNumber + currentNumber;
+            document.getElementById(id).innerText = totalAmount;
+        }
     </script>
 </body>
 </html>
